@@ -34,8 +34,19 @@ def add_to_json(data):
 
 
 def main():
+    firebase_credentials = {
+    "type": os.environ.get("FIREBASE_TYPE"),
+    "project_id": os.environ.get("FIREBASE_PROJECT_ID"),
+    "private_key": os.environ.get("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),  # Replace escaped newlines
+    "client_email": os.environ.get("FIREBASE_CLIENT_EMAIL"),
+    "client_id": os.environ.get("FIREBASE_CLIENT_ID"),
+    "auth_uri": os.environ.get("FIREBASE_AUTH_URI"),
+    "token_uri": os.environ.get("FIREBASE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.environ.get("FIREBASE_AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.environ.get("FIREBASE_CLIENT_X509_CERT_URL")
+}
     if not firebase_admin._apps:
-        cred = credentials.Certificate("qcms-c2f47-firebase-adminsdk-yuuay-25ef959b57.json")
+        cred = credentials.Certificate(firebase_credentials)
         firebase_admin.initialize_app(cred,{'databaseURL': 'https://qcms-c2f47-default-rtdb.firebaseio.com/'})
 
 
